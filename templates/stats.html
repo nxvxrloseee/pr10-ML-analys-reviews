@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Статистика{% endblock %}
+{% block content %}
+<h1>Статистика по отзывам</h1>
+<p class="muted">Всего записей: {{ n }}</p>
+
+{% if charts %}
+<div class="grid two">
+    <section class="card">
+        <h2>Распределение оценок</h2>
+        <img src="data:image/png;base64,{{ charts.rating }}" alt="rating">
+    </section>
+    <section class="card">
+        <h2>Динамика отзывов по дням</h2>
+        <img src="data:image/png;base64,{{ charts.daily }}" alt="daily">
+    </section>
+</div>
+<section class="card">
+    <h2>Облако слов</h2>
+    <img src="data:image/png;base64,{{ charts.wordcloud }}" alt="wordcloud">
+</section>
+{% endif %}
+
+{% if top_neg %}
+<section class="card">
+    <h2>Топ слов в негативных отзывах</h2>
+    <ol class="reclist">
+        {% for w, c in top_neg %}
+            <li><span class="prod">{{ w }}</span><span class="score">{{ c }}</span></li>
+        {% endfor %}
+    </ol>
+</section>
+{% endif %}
+
+{% if summary and summary.forecast and summary.forecast.available %}
+<section class="card">
+    <h2>Прогноз количества отзывов (последние 3 дня выборки)</h2>
+    <table class="metrics">
+        <thead><tr><th>Дата</th><th>Факт</th><th>Прогноз</th></tr></thead>
+        <tbody>
+        {% for i in range(summary.forecast.dates|length) %}
+            <tr>
+                <td>{{ summary.forecast.dates[i] }}</td>
+                <td>{{ summary.forecast.actual[i] }}</td>
+                <td>{{ summary.forecast.predicted[i] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endif %}
+{% endblock %}

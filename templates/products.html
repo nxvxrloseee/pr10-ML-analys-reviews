@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Товары{% endblock %}
+{% block content %}
+<h1>Статистика по товарам</h1>
+{% if rows %}
+<table class="metrics">
+    <thead>
+        <tr><th>Товар</th><th>Отзывов</th><th>Средний рейтинг</th><th>Доля позитива, %</th></tr>
+    </thead>
+    <tbody>
+        {% for r in rows %}
+        <tr>
+            <td>{{ r.product }}</td>
+            <td>{{ r.n_reviews }}</td>
+            <td>{{ '%.2f'|format(r.avg_rating) }}</td>
+            <td>{{ '%.1f'|format(r.positive_share) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="muted">Нет данных. Запустите <code>python train.py</code>.</p>
+{% endif %}
+{% endblock %}

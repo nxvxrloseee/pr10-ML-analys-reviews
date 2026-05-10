@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Сравнение моделей{% endblock %}
+{% block content %}
+<h1>Сравнение моделей классификации</h1>
+{% if primary %}<p>Лучшая (по tuned F1): <b>{{ primary }}</b></p>{% endif %}
+
+{% if metrics %}
+<table class="metrics">
+    <thead>
+        <tr>
+            <th rowspan="2">Модель</th>
+            <th colspan="4">Baseline</th>
+            <th colspan="4">Tuned (GridSearchCV)</th>
+            <th rowspan="2">Best params</th>
+        </tr>
+        <tr>
+            <th>Acc</th><th>Prec</th><th>Rec</th><th>F1</th>
+            <th>Acc</th><th>Prec</th><th>Rec</th><th>F1</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in metrics %}
+        <tr>
+            <td><b>{{ m.model }}</b></td>
+            <td>{{ '%.3f'|format(m.baseline_accuracy) }}</td>
+            <td>{{ '%.3f'|format(m.baseline_precision) }}</td>
+            <td>{{ '%.3f'|format(m.baseline_recall) }}</td>
+            <td>{{ '%.3f'|format(m.baseline_f1) }}</td>
+            <td>{{ '%.3f'|format(m.tuned_accuracy) }}</td>
+            <td>{{ '%.3f'|format(m.tuned_precision) }}</td>
+            <td>{{ '%.3f'|format(m.tuned_recall) }}</td>
+            <td><b>{{ '%.3f'|format(m.tuned_f1) }}</b></td>
+            <td><code>{{ m.best_params }}</code></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="muted">Метрики не найдены. Запустите <code>python train.py</code>.</p>
+{% endif %}
+
+{% if roc_img %}
+<section class="card">
+    <h2>ROC-кривые (tuned)</h2>
+    <img src="data:image/png;base64,{{ roc_img }}" alt="roc">
+</section>
+{% endif %}
+{% endblock %}

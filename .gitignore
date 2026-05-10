@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.cache/
+
+# Logs
+*.log
+app.log
+
+# ML artifacts (тяжёлые бинарники — не коммитим)
+artifacts/*.joblib
+
+# HuggingFace cache (на всякий случай — если кто-то положит локально)
+.cache/huggingface/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+*.tmp
+*.bak

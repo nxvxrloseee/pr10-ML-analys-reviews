@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Логи приложения{% endblock %}
+{% block content %}
+<h1>Последние 50 записей <code>app.log</code></h1>
+<p><a href="{{ url_for('admin_logout') }}">Выйти</a></p>
+{% if lines %}
+<pre class="logbox">{% for ln in lines %}{{ ln }}
+{% endfor %}</pre>
+{% else %}
+<p class="muted">Лог пуст.</p>
+{% endif %}
+{% endblock %}

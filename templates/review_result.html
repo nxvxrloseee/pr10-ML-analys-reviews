@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Отзыв сохранён{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>Отзыв сохранён</h1>
+    <p><b>Товар:</b> {{ product }}</p>
+    <p><b>Оценка:</b> {{ rating }}</p>
+    <p><b>Текст:</b> «{{ text }}»</p>
+    <hr>
+    <p>Предсказанная тональность:
+        <span class="badge {{ 'pos' if label == 'позитивный' else 'neg' }}">
+            {{ label }}
+        </span>
+        <span class="muted">уверенность {{ '%.1f'|format(confidence * 100) }}%</span>
+    </p>
+    <p><a href="{{ url_for('home') }}">Вернуться</a></p>
+</section>
+{% endblock %}

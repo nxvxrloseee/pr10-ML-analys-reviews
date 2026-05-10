@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Анализ отзывов{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <div class="brand">
+        <a href="{{ url_for('home') }}">ReviewLab</a>
+    </div>
+    <nav>
+        <a href="{{ url_for('home') }}">Главная</a>
+        <a href="{{ url_for('stats') }}">Статистика</a>
+        <a href="{{ url_for('products_view') }}">Товары</a>
+        <a href="{{ url_for('models_view') }}">Модели</a>
+        <a href="{{ url_for('clusters_view') }}">Кластеры</a>
+        <a href="{{ url_for('admin_logs') }}">Админ</a>
+    </nav>
+    <div class="user">id: <code>{{ current_user }}</code></div>
+</header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+<footer>
+    <small>ReviewLab — ML-демо {{ now if now else '' }}</small>
+</footer>
+</body>
+</html>

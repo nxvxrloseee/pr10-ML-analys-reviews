@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+    <h1>{{ code }}</h1>
+    <p>{{ message }}</p>
+    <p><a href="{{ url_for('home') }}">На главную</a></p>
+</section>
+{% endblock %}
